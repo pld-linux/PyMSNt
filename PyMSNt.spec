@@ -119,4 +119,4 @@ rm -f %{py_sitedir}/twisted/xish
 %dir %{_sysconfdir}/init.d/
 %attr(755,root,root) %{_sysconfdir}/init.d/PyMSNt
 %dir %{_sysconfdir}/jabber/
-%{_sysconfdir}/jabber/PyMSNt.xml
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/jabber/PyMSNt.xml
