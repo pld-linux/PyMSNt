@@ -1,8 +1,8 @@
 #!/bin/sh
-# Jabber GaduGadu transport
+# Jabber MSN transport
 #
 # chkconfig:	345 85 05
-# description:	Jabber GaduGadu transport
+# description:	Jabber MSN transport
 
 # Source function library
 . /etc/rc.d/init.d/functions
@@ -27,18 +27,18 @@ case "$1" in
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/PyMSNt ]; then
 		msg_starting "Jabber MSN transport"
-		daemon PyMSNt -c /etc/jabber/PyMSNt.xml
+		daemon /usr/share/pymsnt/PyMSNt.py -c /etc/jabber/PyMSNt.xml
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/PyMSNt
 	else
-		msg_already_running pyMSNt
+		msg_already_running PyMSNt
 	fi
 	;;
   stop)
 	# Check if the service is already running?
 	if [ -f /var/lock/subsys/PyMSNt ]; then
 		msg_stopping  "Jabber MSN transport"
-		killproc PyMSNt
+		killproc PyMSNt.py
 		rm -f /var/lock/subsys/PyMSNt
 	else
 		msg_not_running PyMSNt
@@ -50,7 +50,7 @@ case "$1" in
 	exit $?
 	;;
   status)
-	status PyMSNt
+	status PyMSNt.py
 	exit $?
 	;;
   *)
