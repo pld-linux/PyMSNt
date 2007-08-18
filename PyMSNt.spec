@@ -1,6 +1,6 @@
 #
 # TODO:
-# - make it work (create good dependences) (see workaround)
+# - goto and see workaround (!)
 # - summary and description (both),
 # - data to /var/lib/ dir i think,
 # - init scripts
@@ -10,10 +10,13 @@ Summary(pl.UTF-8):	Python MSN jabber transport
 Name:		PyMSNt
 Version:	0.12
 Release:	0.1
+Epoch:		1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://delx.cjb.net/pymsnt/tarballs/pymsnt-snapshot.tar.gz
 # Source0-md5:	878a3df019c3e56b832feb751a4b4502
+Source1:	%{name}-config.xml
+Source2:	%{name}.init
 URL:		http://delx.cjb.net/pymsnt/
 BuildRequires:	python
 BuildRequires:	rpm-pythonprov
@@ -40,8 +43,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/{twistfix/words/{xish/,protocols/jabber/},legacy/msn/,baseproto/}
-
+install -d $RPM_BUILD_ROOT/{%{_datadir}/pymsnt/src/{twistfix/words/{xish/,protocols/jabber/},legacy/msn/,baseproto/},%{_var}/lib/pymsnt}
+install -d $RPM_BUILD_ROOT/%{_sysconfdir}/{jabber,init.d}
 install src/twistfix/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/
 install src/twistfix/words/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/
 install src/twistfix/words/xish/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/xish/
@@ -53,6 +56,9 @@ install src/baseproto/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/baseproto/
 install src/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/
 install PyMSNt.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/
 
+install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/jabber/
+install %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -60,6 +66,22 @@ rm -rf $RPM_BUILD_ROOT
 %post
 ln -s %{py_sitescriptdir}/twisted/words/ %{py_sitedir}/twisted/words
 ln -s %{py_sitescriptdir}/twisted/xish/ %{py_sitedir}/twisted/xish
+
+if [ -f %{_sysconfdir}/jabber/secret ] ; then
+        SECRET=`cat %{_sysconfdir}/jabber/secret`
+        if [ -n "$SECRET" ] ; then
+                echo "Updating component authentication secret in PyMSNt.xml..."
+                %{__sed} -i -e "s/>secret</>$SECRET</" /etc/jabber/PyMSNt.xml
+        fi
+fi
+/sbin/chkconfig --add pyMSNt
+%service pyMSNt restart "Jabber MSN transport"
+
+%preun
+if [ "$1" = "0" ]; then
+        %service pyMSNt stop
+        /sbin/chkconfig --del pyMSNt
+fi
 
 %postun
 rm %{py_sitedir}/twisted/words/
@@ -88,3 +110,4 @@ rm %{py_sitedir}/twisted/xish/
 %{_datadir}/pymsnt/src/*.py
 %dir %{_datadir}/pymsnt
 %{_datadir}/pymsnt/*.py
+%dir %{_var}/lib/pymsnt
