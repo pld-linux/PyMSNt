@@ -2,8 +2,6 @@
 # TODO:
 # - goto and see workaround (!)
 # - summary and description (both),
-# - data to /var/lib/ dir i think,
-# - init scripts
 # ATTENTION! AHTUNG!
 # - SNAPSHOT VERSION!
 
@@ -47,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/{%{_datadir}/pymsnt/src/{twistfix/words/{xish/,protocols/jabber/},legacy/msn/,baseproto/},%{_var}/lib/pymsnt}
 install -d $RPM_BUILD_ROOT/%{_sysconfdir}/{jabber,init.d}
+install -d $RPM_BUILD_ROOT/%{_datadir}/pymsnt/data/
 install src/twistfix/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/
 install src/twistfix/words/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/
 install src/twistfix/words/xish/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/xish/
@@ -56,6 +55,7 @@ install src/legacy/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/legacy/
 install src/legacy/msn/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/legacy/msn/
 install src/baseproto/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/baseproto/
 install src/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/
+install data/* $RPM_BUILD_ROOT/%{_datadir}/pymsnt/data/
 install PyMSNt.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/
 
 install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/jabber/PyMSNt.xml
@@ -86,8 +86,9 @@ if [ "$1" = "0" ]; then
 fi
 
 %postun
-rm -f %{py_sitedir}/twisted/words/
-rm -f %{py_sitedir}/twisted/xish/
+echo "Cleaing ugly workaround (%{py_sitedir}/twisted/{words,xish})"
+rm -f %{py_sitedir}/twisted/words
+rm -f %{py_sitedir}/twisted/xish
 
 %files
 %defattr(644,root,root,755)
@@ -110,10 +111,12 @@ rm -f %{py_sitedir}/twisted/xish/
 %{_datadir}/pymsnt/src/baseproto/*.py
 %dir %{_datadir}/pymsnt/src
 %{_datadir}/pymsnt/src/*.py
+%dir %{_datadir}/pymsnt/data/
+%{_datadir}/pymsnt/data/*
 %dir %{_datadir}/pymsnt
-%{_datadir}/pymsnt/*.py
+%attr(755,root,root) %{_datadir}/pymsnt/*.py
 %dir %{_var}/lib/pymsnt
 %dir %{_sysconfdir}/init.d/
-%{_sysconfdir}/init.d/PyMSNt
+%attr(755,root,root) %{_sysconfdir}/init.d/PyMSNt
 %dir %{_sysconfdir}/jabber/
 %{_sysconfdir}/jabber/PyMSNt.xml
