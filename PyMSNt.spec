@@ -12,7 +12,7 @@ Version:	0.12
 Release:	0.1
 Epoch:		1
 License:	GPL
-Group:		Libraries/Python
+Group:		Applications/Communications
 Source0:	http://delx.cjb.net/pymsnt/tarballs/pymsnt-snapshot.tar.gz
 # Source0-md5:	878a3df019c3e56b832feb751a4b4502
 Source1:	%{name}-config.xml
