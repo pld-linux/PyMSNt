@@ -6,7 +6,7 @@
 <jid>msn.localhost</jid>
 <!-- The public IP or DNS name of the machine the transport is running on -->
 <!-- This is needed for file transfer!! This is also used as the IP address for outgoing connections -->
-<host>127.0.0.1</host>
+<host>public_ip_of_your_host</host>
 <!-- The component JID of the transport. Unless you're doing clustering, leave this alone -->
 <!-- <compjid>msn1</compjid> -->
 <!-- The name of the transport in the service discovery list. -->
