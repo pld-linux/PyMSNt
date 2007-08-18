@@ -1,8 +1,9 @@
 #
 # TODO:
-# - make it work (create good dependences),
+# - make it work (create good dependences) (see workaround)
 # - summary and description (both),
 # - data to /var/lib/ dir i think,
+# - init scripts
 
 Summary:	Python MSN jabber transport
 Summary(pl.UTF-8):	Python MSN jabber transport
@@ -17,6 +18,13 @@ URL:		http://delx.cjb.net/pymsnt/
 BuildRequires:	python
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
+Requires:	python-Twisted
+Requires:	python-Twisted-ssl
+Requires:	python-TwistedWords
+Requires:	python-TwistedWeb
+Requires:	python-TwistedXish
+Requires:	python-Imaging
+Requires:	python-pyOpenSSL 
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -33,6 +41,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/{twistfix/words/{xish/,protocols/jabber/},legacy/msn/,baseproto/}
+
 install src/twistfix/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/
 install src/twistfix/words/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/
 install src/twistfix/words/xish/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/twistfix/words/xish/
@@ -44,10 +53,17 @@ install src/baseproto/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/baseproto/
 install src/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/
 install PyMSNt.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/
 
-%py_postclean
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+#ugly workaround (maybe fix in twisted words/xish package?)
+%post
+ln -s %{py_sitescriptdir}/twisted/words/ %{py_sitedir}/twisted/words
+ln -s %{py_sitescriptdir}/twisted/xish/ %{py_sitedir}/twisted/xish
+
+%postun
+rm %{py_sitedir}/twisted/words/
+rm %{py_sitedir}/twisted/xish/
 
 %files
 %defattr(644,root,root,755)
