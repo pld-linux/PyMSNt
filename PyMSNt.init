@@ -38,7 +38,7 @@ case "$1" in
 	# Check if the service is already running?
 	if [ -f /var/lock/subsys/PyMSNt ]; then
 		msg_stopping  "Jabber MSN transport"
-		killproc PyMSNt.py
+		killproc --pidfile /var/run/PyMSNt.pid PyMSNt
 		rm -f /var/lock/subsys/PyMSNt
 	else
 		msg_not_running PyMSNt
