@@ -4,6 +4,8 @@
 # - summary and description (both),
 # - data to /var/lib/ dir i think,
 # - init scripts
+# ATTENTION! AHTUNG!
+# - SNAPSHOT VERSION!
 
 Summary:	Python MSN jabber transport
 Summary(pl.UTF-8):	Python MSN jabber transport
@@ -56,8 +58,8 @@ install src/baseproto/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/baseproto/
 install src/*.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/src/
 install PyMSNt.py $RPM_BUILD_ROOT/%{_datadir}/pymsnt/
 
-install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/jabber/
-install %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/
+install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/jabber/PyMSNt.xml
+install %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/PyMSNt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -74,18 +76,18 @@ if [ -f %{_sysconfdir}/jabber/secret ] ; then
                 %{__sed} -i -e "s/>secret</>$SECRET</" /etc/jabber/PyMSNt.xml
         fi
 fi
-/sbin/chkconfig --add pyMSNt
-%service pyMSNt restart "Jabber MSN transport"
+/sbin/chkconfig --add PyMSNt
+%service PyMSNt restart "Jabber MSN transport"
 
 %preun
 if [ "$1" = "0" ]; then
-        %service pyMSNt stop
-        /sbin/chkconfig --del pyMSNt
+        %service PyMSNt stop
+        /sbin/chkconfig --del PyMSNt
 fi
 
 %postun
-rm %{py_sitedir}/twisted/words/
-rm %{py_sitedir}/twisted/xish/
+rm -f %{py_sitedir}/twisted/words/
+rm -f %{py_sitedir}/twisted/xish/
 
 %files
 %defattr(644,root,root,755)
@@ -111,3 +113,7 @@ rm %{py_sitedir}/twisted/xish/
 %dir %{_datadir}/pymsnt
 %{_datadir}/pymsnt/*.py
 %dir %{_var}/lib/pymsnt
+%dir %{_sysconfdir}/init.d/
+%{_sysconfdir}/init.d/PyMSNt
+%dir %{_sysconfdir}/jabber/
+%{_sysconfdir}/jabber/PyMSNt.xml
