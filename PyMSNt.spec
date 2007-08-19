@@ -2,7 +2,7 @@
 # TODO:
 # - goto and see workaround (!)
 # - summary and description (both),
-# ATTENTION! AHTUNG!
+# ATTENTION! ACHTUNG!
 # - SNAPSHOT VERSION!
 
 Summary:	Python MSN jabber transport
@@ -37,8 +37,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %prep
 %setup -q -n pymsnt-snapshot
-
-%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
