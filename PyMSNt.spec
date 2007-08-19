@@ -54,8 +54,8 @@ install src/*.py $RPM_BUILD_ROOT%{_datadir}/pymsnt/src
 install data/* $RPM_BUILD_ROOT%{_datadir}/pymsnt/data
 install PyMSNt.py $RPM_BUILD_ROOT%{_datadir}/pymsnt
 
-install %{SOURCE1} $RPM_BUILD_ROOT/%{_sysconfdir}/jabber/PyMSNt.xml
-install %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/PyMSNt
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/jabber/PyMSNt.xml
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/PyMSNt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
