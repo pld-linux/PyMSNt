@@ -8,7 +8,7 @@
 Summary:	Python MSN jabber transport
 Summary(pl.UTF-8):	Transport MSN dla jabbera napisany w pythonie
 Name:		PyMSNt
-Version:	0.12
+Version:	0.11.3
 Release:	0.1
 Epoch:		1
 License:	GPL
