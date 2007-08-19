@@ -6,7 +6,7 @@
 # - SNAPSHOT VERSION!
 
 Summary:	Python MSN jabber transport
-Summary(pl.UTF-8):	Python MSN jabber transport
+Summary(pl.UTF-8):	Transport MSN dla jabbera napisany w pythonie
 Name:		PyMSNt
 Version:	0.12
 Release:	0.1
@@ -115,5 +115,4 @@ rm -f %{py_sitedir}/twisted/xish
 %attr(755,root,root) %{_datadir}/pymsnt/*.py
 %dir %{_var}/lib/pymsnt
 %attr(755,root,root) %{_sysconfdir}/init.d/PyMSNt
-%dir %{_sysconfdir}/jabber/
 %attr(640,root,jabber) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/jabber/PyMSNt.xml
