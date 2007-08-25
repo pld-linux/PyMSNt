@@ -1,12 +1,12 @@
 #
 # TODO:
 # - goto and see workaround (!)
-# - summary and description (both),
+# - real descriptions
 # ATTENTION! ACHTUNG!
 # - SNAPSHOT VERSION!
 
-Summary:	Python MSN jabber transport
-Summary(pl.UTF-8):	Transport MSN dla jabbera napisany w pythonie
+Summary:	Python MSN Jabber transport
+Summary(pl.UTF-8):	Transport MSN dla Jabbera napisany w Pythonie
 Name:		PyMSNt
 Version:	0.11.3
 Release:	0.1
@@ -32,6 +32,10 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
+Python MSN Jabber transport.
+
+%description -l pl.UTF-8
+Transport MSN dla Jabbera napisany w Pythonie.
 
 %prep
 %setup -q -n pymsnt-snapshot
@@ -39,7 +43,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT{%{_datadir}/pymsnt/src/{twistfix/words/{xish/,protocols/jabber/},legacy/msn/,baseproto/},%{_var}/lib/pymsnt}
+install -d $RPM_BUILD_ROOT{%{_datadir}/pymsnt/src/{twistfix/words/{xish,protocols/jabber},legacy/msn,baseproto},%{_var}/lib/pymsnt}
 install -d $RPM_BUILD_ROOT{%{_sysconfdir}/jabber,/etc/rc.d/init.d}
 install -d $RPM_BUILD_ROOT%{_datadir}/pymsnt/data
 install src/twistfix/*.py $RPM_BUILD_ROOT%{_datadir}/pymsnt/src/twistfix
@@ -60,10 +64,10 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/PyMSNt
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-# ugly workaround (maybe fix in twisted words/xish package?)
 %post
-ln -s %{py_sitescriptdir}/twisted/words %{py_sitedir}/twisted/words
-ln -s %{py_sitescriptdir}/twisted/xish %{py_sitedir}/twisted/xish
+# ugly workaround (FIX it here or in twisted words/xish packages)
+#ln -s %{py_sitescriptdir}/twisted/words %{py_sitedir}/twisted/words
+#ln -s %{py_sitescriptdir}/twisted/xish %{py_sitedir}/twisted/xish
 
 if [ -f %{_sysconfdir}/jabber/secret ]; then
 	SECRET=`cat %{_sysconfdir}/jabber/secret`
@@ -81,33 +85,33 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del PyMSNt
 fi
 
-%postun
-echo "Cleaing ugly workaround (%{py_sitedir}/twisted/{words,xish})"
-rm -f %{py_sitedir}/twisted/words
-rm -f %{py_sitedir}/twisted/xish
+#%postun
+#echo "Cleaing ugly workaround (%{py_sitedir}/twisted/{words,xish})"
+#rm -f %{py_sitedir}/twisted/words
+#rm -f %{py_sitedir}/twisted/xish
 
 %files
 %defattr(644,root,root,755)
 %doc README TODO docs
-%dir %{_datadir}/pymsnt/src/twistfix/
+%dir %{_datadir}/pymsnt/src/twistfix
 %{_datadir}/pymsnt/src/twistfix/*.py
-%dir %{_datadir}/pymsnt/src/twistfix/words/
+%dir %{_datadir}/pymsnt/src/twistfix/words
 %{_datadir}/pymsnt/src/twistfix/words/*.py
-%dir %{_datadir}/pymsnt/src/twistfix/words/xish/
+%dir %{_datadir}/pymsnt/src/twistfix/words/xish
 %{_datadir}/pymsnt/src/twistfix/words/xish/*.py
-%dir %{_datadir}/pymsnt/src/twistfix/words/protocols/
+%dir %{_datadir}/pymsnt/src/twistfix/words/protocols
 %{_datadir}/pymsnt/src/twistfix/words/protocols/*.py
-%dir %{_datadir}/pymsnt/src/twistfix/words/protocols/jabber/
+%dir %{_datadir}/pymsnt/src/twistfix/words/protocols/jabber
 %{_datadir}/pymsnt/src/twistfix/words/protocols/jabber/*.py
-%dir %{_datadir}/pymsnt/src/legacy/
+%dir %{_datadir}/pymsnt/src/legacy
 %{_datadir}/pymsnt/src/legacy/*.py
-%dir %{_datadir}/pymsnt/src/legacy/msn/
+%dir %{_datadir}/pymsnt/src/legacy/msn
 %{_datadir}/pymsnt/src/legacy/msn/*.py
-%dir %{_datadir}/pymsnt/src/baseproto/
+%dir %{_datadir}/pymsnt/src/baseproto
 %{_datadir}/pymsnt/src/baseproto/*.py
 %dir %{_datadir}/pymsnt/src
 %{_datadir}/pymsnt/src/*.py
-%dir %{_datadir}/pymsnt/data/
+%dir %{_datadir}/pymsnt/data
 %{_datadir}/pymsnt/data/*
 %dir %{_datadir}/pymsnt
 %attr(755,root,root) %{_datadir}/pymsnt/*.py
