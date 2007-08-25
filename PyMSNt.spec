@@ -11,7 +11,7 @@ Name:		PyMSNt
 Version:	0.11.3
 Release:	0.1
 Epoch:		1
-License:	GPL
+License:	GPL v2
 Group:		Applications/Communications
 Source0:	http://delx.cjb.net/pymsnt/tarballs/pymsnt-snapshot.tar.gz
 # Source0-md5:	878a3df019c3e56b832feb751a4b4502
