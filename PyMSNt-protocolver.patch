@@ -1,0 +1,11 @@
+--- src/legacy/msn/msn.py	2008-02-08 14:55:07.000000000 +0100
++++ src/legacy/msn/msn.py-new	2008-10-05 14:25:37.000000000 +0200
+@@ -110,7 +110,7 @@
+ from urllib import quote, unquote
+ 
+ 
+-MSN_PROTOCOL_VERSION = "MSNP11 CVR0"      # protocol version
++MSN_PROTOCOL_VERSION = "MSNP11"      # protocol version
+ MSN_PORT             = 1863               # default dispatch server port
+ MSN_MAX_MESSAGE      = 1664               # max message length
+ MSN_CVR_STR          = "0x040c winnt 5.1 i386 MSNMSGR 7.0.0777 msmsgs"
