@@ -9,12 +9,12 @@ Summary:	Python MSN Jabber transport
 Summary(pl.UTF-8):	Transport MSN dla Jabbera napisany w Pythonie
 Name:		PyMSNt
 Version:	0.11.3
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL v2
 Group:		Applications/Communications
-Source0:	http://delx.cjb.net/pymsnt/tarballs/pymsnt-snapshot.tar.gz
-# Source0-md5:	878a3df019c3e56b832feb751a4b4502
+Source0:	http://delx.net.au/projects/pymsnt/tarballs/pymsnt-%{version}.tar.gz
+# Source0-md5:	e74049fb1bfae59846b1be3d4ef80299
 Source1:	%{name}-config.xml
 Source2:	%{name}.init
 URL:		http://delx.cjb.net/pymsnt/
@@ -38,7 +38,7 @@ Python MSN Jabber transport.
 Transport MSN dla Jabbera napisany w Pythonie.
 
 %prep
-%setup -q -n pymsnt-snapshot
+%setup -q -n pymsnt-%{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
