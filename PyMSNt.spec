@@ -22,9 +22,9 @@ URL:		http://delx.cjb.net/pymsnt/
 BuildRequires:	python
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
-Requires:	python-Imaging
-Requires:	python-Twisted
-Requires:	python-Twisted-ssl
+Requires:	python-PIL
+Requires:	python-TwistedCore
+Requires:	python-TwistedCore-ssl
 Requires:	python-TwistedWeb
 Requires:	python-TwistedWords
 Requires:	python-pyOpenSSL
