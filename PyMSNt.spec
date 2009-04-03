@@ -27,7 +27,6 @@ Requires:	python-Twisted
 Requires:	python-Twisted-ssl
 Requires:	python-TwistedWeb
 Requires:	python-TwistedWords
-Requires:	python-TwistedXish
 Requires:	python-pyOpenSSL
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
