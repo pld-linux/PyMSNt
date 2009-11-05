@@ -18,6 +18,9 @@ Source0:	http://delx.net.au/projects/pymsnt/tarballs/pymsnt-%{version}.tar.gz
 Source1:	%{name}-config.xml
 Source2:	%{name}.init
 Patch0:		%{name}-protocolver.patch
+Patch1:		%{name}-delete-reactor.patch
+Patch2:		%{name}-remove-pid.patch
+Patch3:		%{name}-unexpected-xfr.patch
 URL:		http://delx.cjb.net/pymsnt/
 BuildRequires:	python
 BuildRequires:	rpm-pythonprov
@@ -40,6 +43,9 @@ Transport MSN dla Jabbera napisany w Pythonie.
 %prep
 %setup -q -n pymsnt-%{version}
 %patch0 -p0
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
