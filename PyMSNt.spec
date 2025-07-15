@@ -42,10 +42,10 @@ Transport MSN dla Jabbera napisany w Pythonie.
 
 %prep
 %setup -q -n pymsnt-%{version}
-%patch0 -p0
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P0 -p0
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
